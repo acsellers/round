@@ -1,11 +1,15 @@
+// round implements round robin pairing for teams. You can pass an
+// array to PrintMatchups to print out the matchings to the console,
+// or use Compilation to get the indexes for the subjects.
 package round
 
-import
+import "fmt"
 
-// Compilation creates round robin listings for a number of players. For the
-// sake of performance
-"fmt"
-
+// Compilation creates round robin listings for a number of players. Note that
+// team indexes start at 1, not 0. For the
+// sake of performance, it takes team indexes and returns and array of the
+// matches. If the number of players is odd, the bye team will be paired with
+// a team 0.
 func Compilation(playerNum int) [][]uint16 {
 	var odd bool
 	if playerNum%2 == 1 {
@@ -36,6 +40,10 @@ func Compilation(playerNum int) [][]uint16 {
 	return fi
 }
 
+// Take an array of people (or players or teams) and create round robin
+// matchups between them. For odd numbers of people, there will be a bye
+// team visible in the teams that indicates the team without a pairing
+// for that game time.
 func PrintMatchups(people []string) {
 	result := Compilation(len(people))
 	for _, r := range result {
